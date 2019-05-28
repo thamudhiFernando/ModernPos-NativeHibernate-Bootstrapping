@@ -1,30 +1,34 @@
 package lk.ijse.pos.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Customer extends SuperEntity {
+
     @Id
-    private int id;
+    private String id;
     private String name;
     private String address;
 
-    public Customer() {
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    private List<Order> orders = new ArrayList<>();
 
+    public Customer() {
     }
 
-    public Customer(int id, String name, String address) {
+    public Customer(String id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,9 +51,19 @@ public class Customer extends SuperEntity {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void addOrder(Order order){
+        this.getOrders().add(order);
+        order.setCustomer(this);
+    }
+
 }

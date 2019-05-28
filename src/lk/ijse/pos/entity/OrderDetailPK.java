@@ -1,18 +1,15 @@
 package lk.ijse.pos.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-
+import java.io.Serializable;
 
 @Embeddable
-public class OrderDetailPK  extends SuperEntity{
-    @Column(name = "order_id")
+public class OrderDetailPK implements Serializable {
+
     private int orderId;
-    @Column(name = "item_code")
     private String itemCode;
 
     public OrderDetailPK() {
-
     }
 
     public OrderDetailPK(int orderId, String itemCode) {

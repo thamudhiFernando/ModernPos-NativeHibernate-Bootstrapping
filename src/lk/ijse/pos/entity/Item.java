@@ -1,18 +1,25 @@
 package lk.ijse.pos.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Item extends SuperEntity {
+public class Item extends SuperEntity{
+
     @Id
     private String code;
     private String description;
     private double unitPrice;
     private int qtyOnHand;
 
-    public Item() {
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
+    public Item() {
     }
 
     public Item(String code, String description, double unitPrice, int qtyOnHand) {
@@ -62,5 +69,9 @@ public class Item extends SuperEntity {
                 ", unitPrice=" + unitPrice +
                 ", qtyOnHand=" + qtyOnHand +
                 '}';
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 }
