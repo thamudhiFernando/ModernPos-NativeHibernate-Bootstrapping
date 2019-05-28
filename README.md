@@ -1,6 +1,5 @@
-# Modern POS - Hibernate
-
-
+# Modern POS - Native Hibernate
+This is a sample CRUD Application with native hibernate bootstrapping.
 
 ## License
 
